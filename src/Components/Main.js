@@ -63,6 +63,11 @@ class Main extends Component {
                 <div>
                     <ProductInput handler={this.addProductHandler}/>
                 </div>
+                <footer>
+                    Made with <a href="https://reactjs.org/">React</a> using <a href="https://material-ui.com/">Material-UI</a>.
+                    <br/>
+                    Code available on GitHub: <a href="https://github.com/username/repo">Link</a>
+                </footer>
             </div>
         );
     }

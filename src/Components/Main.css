@@ -12,3 +12,9 @@ p {
     font-family: "Roboto Slab";
     text-align: center;
 }
+
+footer {
+    font-family: Roboto;
+    text-align: center;
+    font-size: 15px;
+}
