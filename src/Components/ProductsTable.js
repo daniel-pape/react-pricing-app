@@ -32,7 +32,7 @@ function ProductsTable(props) {
                         <TableCell>Product Name</TableCell>
                         <TableCell numeric>Price</TableCell>
                         <TableCell numeric>Quantity</TableCell>
-                        <TableCell numeric>Unit Price</TableCell>
+                        <TableCell numeric>Ratio</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>

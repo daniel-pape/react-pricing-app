@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {withStyles} from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import {ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
-
+import "./ProductInput.css"
 
 const styles = theme => ({
     container: {
@@ -15,7 +15,7 @@ const styles = theme => ({
     },
 });
 
-class Inputs extends Component {
+class ProductInput extends Component {
     // TODO: Understand what this does:
     static propTypes = {
         classes: PropTypes.object.isRequired,
@@ -36,7 +36,7 @@ class Inputs extends Component {
 
     render() {
         return (
-            <div className={this.props.classes.container}>
+            <div className="productInput">
                 <ValidatorForm
                     onSubmit={(e) => {
                         e.preventDefault();
@@ -80,7 +80,7 @@ class Inputs extends Component {
                         name="quantity"
                         validators={['required', 'isNumber', 'minNumber:1']}
                         errorMessages={['This field is required', 'Quantity must be 1, 2, 3,...', 'Quantity must be 1, 2, 3,...']}
-                        placeholder="Quantity"
+                        placeholder="Quantity (1, 2, 3,...)"
                         value={this.state.quantity}
                         className={this.props.classes.input}
                         inputProps={{
@@ -104,4 +104,4 @@ class Inputs extends Component {
     }
 }
 
-export default withStyles(styles)(Inputs);
+export default withStyles(styles)(ProductInput);

@@ -2,6 +2,8 @@ import {Component} from "react";
 import React from "react";
 import ProductsTable from "./ProductsTable";
 import ProductInput from "./ProductInput";
+import "./Main.css"
+import GithubCorner from 'react-github-corner';
 
 class Main extends Component {
     constructor(props) {
@@ -47,6 +49,14 @@ class Main extends Component {
     render() {
         return (
             <div>
+                <GithubCorner href="https://github.com/username/repo"
+                              octoColor="#E7E9EC"/>
+                <h1>
+                    BEST PRICE/QUANTITY RATIO
+                </h1>
+                <p>
+                    Compare products by their price/quantity ratio (a.k.a. price per unit).
+                </p>
                 <div>
                     <ProductsTable rows={this.state.rows}/>
                 </div>
