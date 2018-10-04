@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {withStyles} from '@material-ui/core/styles';
-import Input from '@material-ui/core/Input';
 import Button from '@material-ui/core/Button';
+import {ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 
 
 const styles = theme => ({
@@ -37,54 +37,68 @@ class Inputs extends Component {
     render() {
         return (
             <div className={this.props.classes.container}>
-                <Input
-                    placeholder="Product Name"
-                    value={this.state.productName}
-                    className={this.props.classes.input}
-                    inputProps={{
-                        'aria-label': 'Description',
-                    }}
-                    onChange={
-                        (e) => {
-                            this.setState({productName: e.target.value});
-                        }
-                    }
-                />
-                <Input
-                    placeholder="Price"
-                    value={this.state.price}
-                    className={this.props.classes.input}
-                    inputProps={{
-                        'aria-label': 'Description',
-                    }}
-                    onChange={
-                        (e) => {
-                            this.setState({price: e.target.value});
-                        }
-                    }
-                />
-                <Input
-                    placeholder="Quantity"
-                    value={this.state.quantity}
-                    className={this.props.classes.input}
-                    inputProps={{
-                        'aria-label': 'Description',
-                    }}
-                    onChange={
-                        (e) => {
-                            this.setState({quantity: e.target.value});
-                        }
-                    }
-                />
-                <Button
-                    type="submit"
-                    variant="contained"
-                    color="primary"
-                    onClick={() => {
+                <ValidatorForm
+                    onSubmit={(e) => {
+                        e.preventDefault();
                         this.props.handler(this.state);
                         this.setState(this.defaultState);
                     }}
-                >Add Product</Button>
+                    onError={errors => console.log(errors)}>
+                    <TextValidator
+                        name="productName"
+                        validators={['required', 'isString']}
+                        errorMessages={['This field is required', 'Non-valid product name']}
+                        placeholder="Product Name"
+                        value={this.state.productName}
+                        className={this.props.classes.input}
+                        inputProps={{
+                            'aria-label': 'Description',
+                        }}
+                        onChange={
+                            (e) => {
+                                this.setState({productName: e.target.value});
+                            }
+                        }
+                    />
+                    <TextValidator
+                        name="price"
+                        validators={['required', 'isFloat', 'minFloat: 0.0']}
+                        errorMessages={['This field is required', 'Price not valid']}
+                        placeholder="Price"
+                        value={this.state.price}
+                        className={this.props.classes.input}
+                        inputProps={{
+                            'aria-label': 'Description',
+                        }}
+                        onChange={
+                            (e) => {
+                                this.setState({price: e.target.value});
+                            }
+                        }
+                    />
+                    <TextValidator
+                        name="quantity"
+                        validators={['required', 'isNumber', 'minNumber:1']}
+                        errorMessages={['This field is required', 'Quantity must be 1, 2, 3,...', 'Quantity must be 1, 2, 3,...']}
+                        placeholder="Quantity"
+                        value={this.state.quantity}
+                        className={this.props.classes.input}
+                        inputProps={{
+                            'aria-label': 'Description',
+                        }}
+                        onChange={
+                            (e) => {
+                                this.setState({quantity: e.target.value});
+                            }
+                        }
+                    />
+                    <Button
+                        type="submit"
+                        variant="contained"
+                        color="primary">
+                        Add Product
+                    </Button>
+                </ValidatorForm>
             </div>
         );
     }
