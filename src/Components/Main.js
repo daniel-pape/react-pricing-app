@@ -1,6 +1,6 @@
 import {Component} from "react";
 import React from "react";
-import ProductsTable from "./ProductsTable";
+import ProductTable from "./ProductTable";
 import ProductInput from "./ProductInput";
 import "./Main.css"
 import GithubCorner from 'react-github-corner';
@@ -9,41 +9,53 @@ class Main extends Component {
     constructor(props) {
         super(props)
 
-        const createData = function (id, name, price, quantity, unitPrice) {
-            return {id, name, price, quantity, unitPrice};
+        this.createData = function (id, name, price, quantity, ratio) {
+            return {id, name, price, quantity, ratio};
         }
 
-        this.createData = createData;
-
         this.state = {
-            rows: []
+            rows: [
+                this.createData("Example A", "Example A", 80.00, 10, 1.0),
+                this.createData("Example B", "Example B", 20.00, 10, 2.0),
+            ]
         }
 
         this.addProductHandler = this.addProductHandler.bind(this);
     }
 
-    addProductHandler = (data) => {
-        console.log("Product added", data)
 
-        const computeUnitPrice = function(price, quantity) {
+    addProductHandler = (data) => {
+
+        const computeUnitPrice = function (price, quantity) {
             return (price / quantity).toPrecision(2)
         }
 
+        let isProductNameUsed = this.state.rows.map(x => x.id).includes(data.productName)
 
-        let newData = this.createData(
-            this.state.rows.length + 1,
-            data.productName,
-            data.price,
-            data.quantity,
-            computeUnitPrice(data.price, data.quantity),
-        );
+        if (!isProductNameUsed) {
+            let newData = this.createData(
+                data.productName,
+                data.productName,
+                data.price,
+                data.quantity,
+                computeUnitPrice(data.price, data.quantity),
+            );
 
+            let newState = Object.assign({}, this.state);
+            newState["rows"] = this.state.rows.concat(newData);
 
+            this.setState(newState);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    deleteProductHandler = (productIds) => {
         let newState = Object.assign({}, this.state);
-        // TODO: Why does .push(newData) not work?
-        newState["rows"] = this.state.rows.concat(newData);
-        this.setState(newState);
+        newState["rows"] = this.state.rows.filter(row => !productIds.includes(row.id));
 
+        this.setState(newState);
     }
 
     render() {
@@ -58,13 +70,16 @@ class Main extends Component {
                     Compare products by their price/quantity ratio (a.k.a. price per unit).
                 </p>
                 <div>
-                    <ProductsTable rows={this.state.rows}/>
+                    {/*<ProductsTable rows={this.state.rows}/>*/}
+                    <ProductTable rows={this.state.rows}
+                                  deleteProductHandler={this.deleteProductHandler}/>
                 </div>
                 <div>
                     <ProductInput handler={this.addProductHandler}/>
                 </div>
                 <footer>
-                    Made with <a href="https://reactjs.org/">React</a> using <a href="https://material-ui.com/">Material-UI</a>.
+                    Made with <a href="https://reactjs.org/">React</a> using <a
+                    href="https://material-ui.com/">Material-UI</a>.
                     <br/>
                     Code available on GitHub: <a href="https://github.com/username/repo">Link</a>
                 </footer>

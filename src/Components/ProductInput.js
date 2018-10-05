@@ -40,8 +40,12 @@ class ProductInput extends Component {
                 <ValidatorForm
                     onSubmit={(e) => {
                         e.preventDefault();
-                        this.props.handler(this.state);
-                        this.setState(this.defaultState);
+                        if (this.props.handler(this.state)) {
+                            this.setState(this.defaultState);
+                        } else {
+                            alert("Product Name is already used")
+                            this.setState(this.defaultState);
+                        }
                     }}
                     onError={errors => console.log(errors)}>
                     <TextValidator
