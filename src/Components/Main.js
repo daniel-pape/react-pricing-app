@@ -61,7 +61,7 @@ class Main extends Component {
     render() {
         return (
             <div>
-                <GithubCorner href="https://github.com/username/repo"
+                <GithubCorner href="https://github.com/daniel-pape/react-pricing-app"
                               octoColor="#E7E9EC"/>
                 <h1>
                     BEST PRICE/QUANTITY RATIO
@@ -81,7 +81,7 @@ class Main extends Component {
                     Made with <a href="https://reactjs.org/">React</a> using <a
                     href="https://material-ui.com/">Material-UI</a>.
                     <br/>
-                    Code available on GitHub: <a href="https://github.com/username/repo">Link</a>
+                    Code available on GitHub: <a href="https://github.com/daniel-pape/react-pricing-app">Link</a>
                 </footer>
             </div>
         );
